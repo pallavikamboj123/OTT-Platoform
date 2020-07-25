@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+}
+.main-module{
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.6)), url('../images/bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.nav-module-brand{
+    font-size: 25px;
+    color: rgba(255,255,255,0.9) !important;
+}
+.nav-module{
+    font-size: 20px;
+    color: rgba(255,255,255,0.9) !important;
+    /* padding: 20px 20px 0 20px !important; */
+    background: transparent;
+    border: transparent;
+}
+
+.toggler-main-module{
+    color: rgba(255,255,255,0.9) !important;
+}
+.main-heading{
+    color: rgba(255,255,255,0.9);
+
+}
+.main-paragraph{
+    color: rgba(255,255,255,0.9);
+    
+}
+
+.formgroup-main{
+    display: inline-block;
+    
+}
+
+#searchInput{
+    border-radius: 25px;
+    background: rgb(255,255,255);
+    color: rgb(255,255,255);
+    /* padding-left: 40px;
+    padding-right: 40px;; */
+}
+
+#search-button{
+    border-radius: 25px;
+    background: rgba(255,0,0,0.6);
+   
+}
+
+.modalmainpage{
+    /* border-radius: 20px; */
+    background: rgba(0,0,0,1);
+    color: rgb(255,255,255);
+  
+}
+
+
+.form-input-modal{
+    background: transparent;
+}
+.form-input-modal:focus{
+    background: transparent;
+    box-shadow: 6px 6px 6px #000;
+}
+
+#render-items{
+    background: white;
+}
+
+.card-body{
+    background: rgb(255,255,255);
+    border: transparent;
+    box-shadow: 10px 10px 115px -14px black;
+}
+

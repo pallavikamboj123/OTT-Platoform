@@ -7,20 +7,27 @@ userRouter.use(bodyParser.json());
 var authenticate = require('../authenticate');
 
 userRouter.post('/signup', (req,res,next)=>{
+  console.log("outise post");
   User.register(new User({username:req.body.username}), req.body.password, (err,user)=>{
+    console.log("inwside post");
     if(err){
-      err.status = 500;
+      console.log("inwside if err post");
+      console.log(err);
+      err.statusCode = 500;
       res.setHeader('Content-Type','application/json');
       res.json({err:err});
     }
     else{
+      console.log("inwside else post");
       if(req.body.firstname){
         user.firstname = req.body.firstname;
       }
       if(req.body.lastname){
         user.lastname = req.body.lastname;
       }
+      console.log("outside user post");
       user.save((err,user)=>{
+        console.log("inside user post");
         if(err){
           res.statusCode = 500;
           res.setHeader('Content-Type','application/json');
@@ -30,7 +37,8 @@ userRouter.post('/signup', (req,res,next)=>{
         passport.authenticate('local')(req,res,() => {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.json({success: true, status: 'Registration Successful!'});
+            console.log(user.firstname);
+            res.json(user.firstname);
         });
       });
     }
@@ -65,4 +73,4 @@ userRouter.post('/login', (req,res,next)=>{
   })(req,res,next);
 });
 
-module.exports = dishRouter;
+module.exports = userRouter;

@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink ,
 Form, FormGroup, Input, Button, ModalHeader, ModalBody,
 Modal, Label, Card, CardImg,
-CardTitle, CardBody} from 'reactstrap';
+CardTitle, CardBody, Row, Col} from 'reactstrap';
+import {LocalForm,Control} from 'react-redux-form';
 import '../css/home.css'
+
 
 
 function Mainpagecontent(){
@@ -31,7 +33,7 @@ function Mainpagecontent(){
 }
 
 function RenderItem({item}){
-    console.log(item);
+    // console.log(item);
     return(
         <div>
         <Card >
@@ -51,8 +53,7 @@ function RenderItem({item}){
     );
 }
 
-
-
+     
 
 class Home extends Component{
 
@@ -61,11 +62,13 @@ class Home extends Component{
         this.state = {
             isNavOpen: false,
             isloginModalOpen: false,
-            issignupModalOpen: false
+            issignupModalOpen: false,
+        
         }
         this.toggleNav = this.toggleNav.bind(this);
         this.logintoggleModal = this.logintoggleModal.bind(this);
         this.signuptoggleModal = this.signuptoggleModal.bind(this);
+        this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
     }
 
     toggleNav(){
@@ -83,6 +86,16 @@ class Home extends Component{
             issignupModalOpen: !this.state.issignupModalOpen
         });
     }
+
+    handleSignUpSubmit(values){
+        this.signuptoggleModal();
+        this.props.signUp(values.firstname, values.lastname, values.username, values.password);
+    }
+    handleLoginsubmit(values){
+        this.logintoggleModal();
+        this.props.loginUser(values);
+    }
+    
     render(){
         
         const renderItems = this.props.trending.map((item) => {
@@ -108,75 +121,120 @@ class Home extends Component{
                             Korean-Drama
                         </NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
-                            <Nav className="ml-auto" navbar>
+                        <Nav className="ml-auto" navbar>
+                            {/* <Login isAuth = {this.props.auth.isAuthenticated}/>
+                            <Signup isAuth = {this.props.auth.isAuthenticated} />
+                            <Logout isAuth = {this.props.auth.isAuthenticated} /> */}
+                            {!this.props.auth.isAuthenticated ?
                                 <NavItem>
                                     <NavLink className="nav-link"  to="#">
                                         <Button  onClick= {this.logintoggleModal} className="nav-module">
                                             Login
                                         </Button>
                                     </NavLink>
-                                </NavItem>
+                               </NavItem>
+                            
+                            
+                            :
                                 <NavItem>
                                     <NavLink className="nav-link" to="#">
-                                        <Button  onClick={this.signuptoggleModal} className="nav-module">
-                                            Sign-up
+                                        <Button   className="nav-module">
+                                            Logout
                                         </Button>
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink className="nav-link" to="#">
-                                        <Button  className="nav-module">
-                                            Watchlist
-                                        </Button>
-                                    </NavLink>
-                                </NavItem>
-                            </Nav>
+                            }
+                            {!this.props.auth.isAuthenticated ?
+                            <NavItem>
+                                <NavLink className="nav-link" to="#">
+                                    <Button  onClick={this.signuptoggleModal} className="nav-module">
+                                        Sign-up
+                                    </Button>
+                                </NavLink>
+                            </NavItem>
+                            :
+                                <></>
+                            }
+                            <NavItem>
+                                <NavLink className="nav-link" to="#">
+                                    <Button  className="nav-module">
+                                        Watchlist
+                                    </Button>
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
                         </Collapse>
                     </div>
                 </Navbar>
                 <Modal isOpen ={this.state.isloginModalOpen} contentClassName="modalmainpage" className="mt-5" toggle={this.logintoggleModal} >
                     <ModalHeader  className="modal-header" toggle={this.logintoggleModal}>Login</ModalHeader>
                     <ModalBody>
-                        <Form>
-                            <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input className="form-input-modal" type="text" id="username" name="username" placeholder="Johndoe@gmail.com"/>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="password">Password</Label>
-                                <Input className="form-input-modal" type="password" id="password" name="password" placeholder="your password"/>
-                            </FormGroup>
+                        <LocalForm onSubmit={values=> this.handleLoginsubmit(values)}>
+                            <Row className="form-group">
+                                <Col>
+                                    <Label htmlFor="username">Username</Label>
+                                    <Input className="form-input-modal" type="text" id="username" name="username" placeholder="Johndoe@gmail.com"/>
+                                </Col>
+                                
+                            </Row>
+                            <Row className="form-group">
+                                <Col>
+                                    <Label htmlFor="password">Password</Label>
+                                    <Input className="form-input-modal" type="password" id="password" name="password" placeholder="your password"/>
+                                </Col>
+                               
+                            </Row>
                             <Button type="submit" name="submit" color="danger">Login</Button>
-                        </Form>
+                        </LocalForm>
                     </ModalBody>
                 </Modal>
                 <Modal isOpen ={this.state.issignupModalOpen} toggle={this.signuptoggleModal} contentClassName="modalmainpage">
                     <ModalHeader contentClassName="modal-header" toggle={this.signuptoggleModal}>Sign-up</ModalHeader>
                     <ModalBody>
-                        <Form>
-                            <FormGroup>
+                        <LocalForm onSubmit={(values) => this.handleSignUpSubmit(values)}>
+                            <Row className="form-group">
+                                <Col>
+                              
                                 <Label htmlFor="firstname">First Name</Label>
-                                <Input className="form-input-modal" type="text" id="firstname" name="firstname" placeholder="John"/>
-                            </FormGroup>
+                                <Control.text className="form-control form-input-modal"  id="firstname"
                             
-                            <FormGroup>
+                                    placeholder="John" model=".firstname"/>
+                                </Col>
+                            </Row>
+                        
+                            <Row className="form-group">
+                                <Col>
                                 <Label htmlFor="lastname">Last Name</Label>
-                                <Input className="form-input-modal" type="text" id="lastname" name="lastname" placeholder="Doe"/>
-                            </FormGroup>
-                            <FormGroup>
+                                <Control.text className="form-control form-input-modal"  id="lastname" 
+
+                                placeholder="Doe" model=".lastname"/>
+                                </Col>
+                                
+                            </Row>
+                            <Row className="form-group">
+                            <Col>
                                 <Label htmlFor="username">Username</Label>
-                                <Input className="form-input-modal" type="text" id="username" name="username" placeholder="Johndoe@gmail.com"/>
-                            </FormGroup>
-                            <FormGroup>
+                                <Control.text className="form-control form-input-modal"  id="username"  
+                                 placeholder="Johndoe@gmail.com" 
+                               
+                                 model=".username"/>
+                                 
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                            <Col>
                                 <Label htmlFor="password">Password</Label>
-                                <Input className="form-input-modal" type="password" id="password" name="password" placeholder="your password"/>
-                            </FormGroup>
+                                <Control.text className="form-control form-input-modal"  id="password" 
+                                model=".password" 
+                                 placeholder="your password"/>
+                                </Col>
+                            </Row>
                             {/* <FormGroup>
                                 <Label htmlFor="confirmpassword">Confirm Password</Label>
                                 <Input className="form-input-modal" type="password" id="confirmpassword" name="confirmpassword" placeholder="your password"/>  
                             </FormGroup> */}
                             <Button type="submit" name="submit" color="danger">Sign Up</Button>
-                        </Form>
+                        </LocalForm>
                     </ModalBody>
                 </Modal>
                 <div class="row mb-5">

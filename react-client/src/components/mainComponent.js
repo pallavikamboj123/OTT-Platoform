@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 import Home from './homeComponent';
 import {connect} from 'react-redux';
+import {signUp, loginUser} from '../redux/actioncreators'
 
 
 const mapStateToProps = state =>{
     return{
-        trending: state.trending
+        trending: state.trending,
+        auth: state.auth
     }
 }
 
+const mapDistpatchToProps = dispatch => ({
+    signUp : (firstname, lastname, username, password)=> dispatch(signUp(firstname, lastname, username, password)),
+    loginUser: (creds)=>dispatch(loginUser(creds))
+
+})
 
 class Main extends Component{
     constructor(props){
@@ -19,24 +26,22 @@ class Main extends Component{
     }
 
 
-    componentWillMount(){
-        console.log("component will mount");
-     fetch('http://localhost:3001/users')
-        .then(resp => resp.text())
-        .then(resp => this.setState({apiresp: resp}))
-        .catch(err => console.log("error is ",err));
-        console.log("component mounted");
-    }
+    
     
 
     render(){
         return(
             <>
-            <h1>{this.state.apiresp}</h1>
-            <Home trending={this.props.trending}/>
+            {/* <h1>{this.state.apiresp}</h1> */}
+            <Home 
+                trending={this.props.trending} 
+                signUp={this.props.signUp}
+                loginUser = {this.props.loginUser}
+                auth={this.props.auth}
+            />
             </>
         );
     }
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDistpatchToProps)(Main);

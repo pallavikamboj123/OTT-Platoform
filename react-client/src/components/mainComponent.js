@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Home from './homeComponent';
 import {connect} from 'react-redux';
-import {signUp, loginUser} from '../redux/actioncreators'
+import {signUp, loginUser, logoutUser} from '../redux/actioncreators'
 
 
 const mapStateToProps = state =>{
@@ -13,7 +13,8 @@ const mapStateToProps = state =>{
 
 const mapDistpatchToProps = dispatch => ({
     signUp : (firstname, lastname, username, password)=> dispatch(signUp(firstname, lastname, username, password)),
-    loginUser: (creds)=>dispatch(loginUser(creds))
+    loginUser: (creds)=>dispatch(loginUser(creds)),
+    logoutUser: ()=>dispatch(logoutUser())
 
 })
 
@@ -38,6 +39,7 @@ class Main extends Component{
                 signUp={this.props.signUp}
                 loginUser = {this.props.loginUser}
                 auth={this.props.auth}
+                logoutUser = {this.props.logoutUser}
             />
             </>
         );

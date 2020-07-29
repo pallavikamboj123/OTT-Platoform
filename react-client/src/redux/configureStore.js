@@ -14,7 +14,7 @@ export const ConfigureStore = ()=>{
             trending: trending,
             auth: Auth
         }),
-        applyMiddleware(thunk,logger)
+        applyMiddleware(thunk, logger)
     );
 
     return store;

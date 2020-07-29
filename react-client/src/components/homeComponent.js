@@ -93,6 +93,7 @@ class Home extends Component{
     }
     handleLoginsubmit(values){
         this.logintoggleModal();
+        console.log("values are ", values);
         this.props.loginUser(values);
     }
     
@@ -131,6 +132,7 @@ class Home extends Component{
                                         <Button  onClick= {this.logintoggleModal} className="nav-module">
                                             Login
                                         </Button>
+                                        
                                     </NavLink>
                                </NavItem>
                             
@@ -138,8 +140,9 @@ class Home extends Component{
                             :
                                 <NavItem>
                                     <NavLink className="nav-link" to="#">
-                                        <Button   className="nav-module">
+                                        <Button   onClick = {this.props.logoutUser} className="nav-module">
                                             Logout
+                                           
                                         </Button>
                                     </NavLink>
                                 </NavItem>
@@ -173,14 +176,14 @@ class Home extends Component{
                             <Row className="form-group">
                                 <Col>
                                     <Label htmlFor="username">Username</Label>
-                                    <Input className="form-input-modal" type="text" id="username" name="username" placeholder="Johndoe@gmail.com"/>
+                                    <Control.text className="form-control form-input-modal" type="text" id="username" model=".username" placeholder="Johndoe@gmail.com"/>
                                 </Col>
                                 
                             </Row>
                             <Row className="form-group">
                                 <Col>
                                     <Label htmlFor="password">Password</Label>
-                                    <Input className="form-input-modal" type="password" id="password" name="password" placeholder="your password"/>
+                                    <Control.text className="form-control form-input-modal" type="password" id="password" model=".password" placeholder="your password"/>
                                 </Col>
                                
                             </Row>

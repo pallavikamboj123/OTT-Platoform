@@ -64,7 +64,9 @@ export const loginError = (message) => {
 }
 
 export const loginUser = (creds) => (dispatch)=>{
+   
    dispatch(requestLogin(creds));
+   console.log("creds are ",creds);
    return fetch('http://localhost:5000/users/login', {
       method: 'POST',
       headers:{
@@ -73,20 +75,26 @@ export const loginUser = (creds) => (dispatch)=>{
       body: JSON.stringify(creds)
    })
    .then(response=>{
+      console.log("inside response");
       if(response.ok){
-         return response
+         return response;
       }
       else {
          var error = new Error('Error ' + response.status + ': ' + response.statusText);
          error.response = response;
+         console.log("error is  ", error);
+         alert(response.status+" because of "+response.err);
          throw error;
      }
    },
    error => {
+      console.log(error);
        throw error;
    })
    .then(response => response.json())
    .then(response => {
+      console.log("inside response");
+      console.log(response.status);
       if(response.success){
          localStorage.setItem('token', response.token);
          localStorage.setItem('creds', JSON.stringify(creds));
@@ -100,3 +108,27 @@ export const loginUser = (creds) => (dispatch)=>{
    })
    .catch(error => dispatch(loginError(error.message)))
 };
+
+export const requestLogout = () => {
+   return {
+     type: ActionTypes.LOGOUT_REQUEST
+   }
+}
+ 
+export const receiveLogout = () => {
+   return {
+     type: ActionTypes.LOGOUT_SUCCESS
+   }
+}
+
+
+export const logoutUser = () => (dispatch) => {
+   dispatch(requestLogout())
+   localStorage.removeItem('token');
+   localStorage.removeItem('creds');
+   // dispatch(favoritesFailed("Error 401: Unauthorized"));
+   dispatch(receiveLogout())
+}
+
+
+// https://mydramalist.github.io/MDL-API/#introduction

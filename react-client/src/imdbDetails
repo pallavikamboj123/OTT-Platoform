@@ -1,0 +1,16 @@
+var unirest = require("unirest");
+
+var req = unirest("GET", "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/inception");
+
+req.headers({
+	"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+	"x-rapidapi-key": "a62d88a333msh19842c8d2797073p1513dejsn1f3e119aa17a",
+	"useQueryString": true
+});
+
+
+req.end(function (res) {
+	if (res.error) throw new Error(res.error);
+
+	console.log(res.body);
+});

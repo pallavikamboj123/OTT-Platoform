@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
  import Main from './components/mainComponent';
-
+import {BrowserRouter} from 'react-router-dom';
  import {Provider} from 'react-redux';
  import {ConfigureStore} from './redux/configureStore';
  
@@ -14,16 +14,15 @@ class App  extends Component{
     return (
      
       <Provider store= {store}>
-            <Main />
+        <BrowserRouter>
+        <div>
+        <Main />
+        </div>
+        </BrowserRouter>
+           
       </Provider>
         
     );
   }}
  
-    
-
-  
-    
-
-
- export default App;
+export default App;

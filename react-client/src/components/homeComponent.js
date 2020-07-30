@@ -4,6 +4,7 @@ Form, FormGroup, Input, Button, ModalHeader, ModalBody,
 Modal, Label, Card, CardImg,
 CardTitle, CardBody, Row, Col} from 'reactstrap';
 import {LocalForm,Control} from 'react-redux-form';
+import {Link} from 'react-router-dom';
 import '../css/home.css'
 
 
@@ -37,6 +38,7 @@ function RenderItem({item}){
     return(
         <div>
         <Card >
+            <Link to={`/movies/${item.id}`}>
           <CardImg top width="100%" height="250px" src={item.image} alt="Card image cap" />
           <CardBody className="card-body">
             <CardTitle className="h5 text-center mt-3 mb-4">{item.name}</CardTitle>
@@ -48,6 +50,7 @@ function RenderItem({item}){
             </div>
             
           </CardBody>
+          </Link>
         </Card>
       </div>
     );
@@ -71,6 +74,7 @@ class Home extends Component{
         this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
     }
 
+    
     toggleNav(){
         this.setState({
             isNavOpen: !this.state.isNavOpen

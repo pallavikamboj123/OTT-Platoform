@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Home from './homeComponent';
 import MovieDetail from './movieDetailComponent';
 import {connect} from 'react-redux';
-import {signUp, loginUser, logoutUser} from '../redux/actioncreators'
+import {signUp, loginUser, logoutUser, fetchTrending} from '../redux/actioncreators'
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import unirest from 'unirest';
 
@@ -16,7 +16,8 @@ const mapStateToProps = state =>{
 const mapDistpatchToProps = dispatch => ({
     signUp : (firstname, lastname, username, password)=> dispatch(signUp(firstname, lastname, username, password)),
     loginUser: (creds)=>dispatch(loginUser(creds)),
-    logoutUser: ()=>dispatch(logoutUser())
+    logoutUser: ()=>dispatch(logoutUser()),
+    fetchTrending: ()=>dispatch(fetchTrending())
 
 })
 
@@ -31,27 +32,11 @@ class Main extends Component{
     }
 
     componentWillMount(){
-        const req = unirest("GET","https://movie-database-imdb-alternative.p.rapidapi.com/");
-    req.query({
-        "page": "1",
-        "r":"json",
-        "s":"titanic"
-    });
-    req.headers({
-        "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-	"x-rapidapi-key": "a62d88a333msh19842c8d2797073p1513dejsn1f3e119aa17a"
-    });
-
-    req.end((res)=>{
-        if(res.error){
-           console.log(res.error);
-
-        }
-        console.log(res.body);
-    });
+         this.props.fetchTrending();
+       
     }
     
-    
+
 
     render(){
         const Homepage= () => {

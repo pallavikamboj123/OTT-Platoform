@@ -1,37 +1,14 @@
 import React, {Component} from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink ,
-Form, FormGroup, Input, Button, ModalHeader, ModalBody,
+ Button, ModalHeader, ModalBody,
 Modal, Label, Card, CardImg,
 CardTitle, CardBody, Row, Col} from 'reactstrap';
 import {LocalForm,Control} from 'react-redux-form';
 import {Link} from 'react-router-dom';
-import '../css/home.css'
+import '../css/home.css';
+import Search from './searchComponent';
 
 
-
-function Mainpagecontent(){
-    return (
-        <div className="container mt-5">
-                    <div className="row justify-content-center">
-                        <h1 className="main-heading">Dramas to explore</h1>
-                    </div>
-                    <div className="row justify-content-center">
-                        <p className="main-paragraph">search for your favorite drama <span className="d-none d-md-inline">and add them in your wishlist</span></p>
-                    </div>
-                    <div className="row mt-3  justify-content-center">
-                        <div>
-                            <Form >
-                                <FormGroup className="col-8 formgroup-main">
-                                    <Input type="text" className="pl-sm-5" name="search" id="searchInput" placeholder="search drama..."></Input>
-                                </FormGroup>
-                                <Button className="col-3 col-sm-3 pl-sm-3 pr-sm-3" id="search-button">Search</Button>
-                                
-                            </Form>
-                        </div>
-                    </div>
-                </div>
-    );
-}
 
 function RenderItem({item}){
     // console.log(item);
@@ -56,6 +33,54 @@ function RenderItem({item}){
     );
 }
 
+function RenderAnimeItem({item}){
+    return(
+        <div>
+            <Card>
+                <CardImg height="500px" src={item.attributes.posterImage.original} alt="poster" />
+                <CardBody>
+                    <CardTitle><h3>{item.attributes.canonicalTitle}</h3></CardTitle>
+                    <div className="container mt-4 mb-2">
+                        <div className="row justify-content-between">
+                            <div>
+                                <Button className="btn btn-danger">Watch now</Button>
+                            </div>
+                            <div>
+                                <Button className="btn btn-danger">Add to watchlist</Button>
+                            </div>
+                        </div>
+
+                    </div>
+                </CardBody>
+            </Card>
+        </div>
+    );
+}
+
+function RenderItems({trending}){
+    
+//    console.log(trending.trending.data);
+        //    console.log(trending," inside home");
+           if(trending.isLoading === true){
+            return(
+                <h4>Loading something</h4>
+            );
+           }
+           else{
+              return  trending.trending.data.map((item)=>{
+                return(
+                    <div className="col-12 col-sm-4 mb-5" key={item.id}>
+                        <RenderAnimeItem item = {item} />
+                    </div> 
+                    
+                );
+               })
+            
+           }
+               
+         
+    
+}
      
 
 class Home extends Component{
@@ -103,16 +128,7 @@ class Home extends Component{
     
     render(){
         
-        const renderItems = this.props.trending.map((item) => {
-            return(
-         
-                        <div className="col-12 col-sm-4 mb-5" key={item.id}>
-                        <RenderItem item = {item} />
-                    </div> 
-              
-            );
-        })
-
+       
 
         return(
             <>
@@ -245,16 +261,16 @@ class Home extends Component{
                     </ModalBody>
                 </Modal>
                 <div class="row mb-5">
-                        <Mainpagecontent />
+                        <Search />
                     </div>
                 <div className="container-fluid mt-5" id="render-items" >
                     <div className="row justify-content-center">
-                        <h1 className="mt-5 mb-5" >Trending Dramas</h1>
+                        <h1 className="mt-5 mb-5" >Trending Anime</h1>
                         </div>
                     
                     <div className="row">
                         
-                            {renderItems}
+                           <RenderItems trending={this.props.trending} />
                        
                      </div>
                 </div>

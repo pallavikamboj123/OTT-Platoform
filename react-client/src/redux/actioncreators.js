@@ -41,6 +41,8 @@ export const signUp = (firstname, lastname, username,password) => (dispatch)=>{
 
 
 
+
+
 export const requestLogin = (creds) => {
    return {
       type: ActionTypes.LOGIN_REQUEST,
@@ -130,5 +132,28 @@ export const logoutUser = () => (dispatch) => {
    dispatch(receiveLogout())
 }
 
+export const isLoadingTrending = ()=>{
+   return {
+      type: ActionTypes.ISLOADING_TRENDING
+   }
+}
 
-// https://mydramalist.github.io/MDL-API/#introduction
+export const trendingAnime = (trending)=>{
+   // console.log("from trending func ", trending);
+   return {
+      type:ActionTypes.TRENDING_ANIME,
+      trending
+   }
+  
+}
+
+export const fetchTrending = () => (dispatch)=>{
+   dispatch(isLoadingTrending());
+   return fetch('https://kitsu.io/api/edge/trending/anime')
+         .then(trending=>trending.json())
+         .then((trending)=> {
+            // console.log("inside action ",trending.data);
+            dispatch(trendingAnime(trending))
+         })
+         .catch(err=>alert("something is not right ",err));
+}

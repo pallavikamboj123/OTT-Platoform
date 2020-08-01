@@ -56,7 +56,7 @@ class Main extends Component{
         }
 
         const TrendingAnimeDetail = ({match}) =>{
-
+            
             return(
                 <AnimeDetail 
                     anime = {this.props.trending.trending.data.filter((anime)=> anime.id === match.params.animeId)[0]}

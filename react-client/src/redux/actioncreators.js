@@ -157,3 +157,30 @@ export const fetchTrending = () => (dispatch)=>{
          })
          .catch(err=>alert("something is not right ",err));
 }
+
+
+export const isLoadingAnime = ()=>{
+   return{
+      type: ActionTypes.ISLOADING_ANIME
+   }
+}
+
+
+export const loadAnime = (anime) =>{
+   return{
+      type: ActionTypes.LOAD_ANIME,
+      anime
+   }
+}
+export const fetchAnime = (anime) => (dispatch)=>{
+   dispatch(isLoadingAnime());
+   // console.log(anime.searchInput, " made request for this anime");
+
+   return fetch(`https://kitsu.io/api/edge/anime?filter[text]=${anime.searchInput}`)
+   .then(anime => anime.json())
+   .then(anime=> { 
+       
+      dispatch(loadAnime(anime))
+   })
+   .catch(err=> alert("Failed to fetch anime"));
+}

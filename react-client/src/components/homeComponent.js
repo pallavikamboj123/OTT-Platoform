@@ -1,86 +1,16 @@
 import React, {Component} from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink ,
  Button, ModalHeader, ModalBody,
-Modal, Label, Card, CardImg,
-CardTitle, CardBody, Row, Col} from 'reactstrap';
+Modal, Label,  Row, Col} from 'reactstrap';
 import {LocalForm,Control} from 'react-redux-form';
 import {Link} from 'react-router-dom';
 import '../css/home.css';
 import Search from './searchComponent';
+import RenderAnime from './animeAndTrendingComponent';
 
 
 
-function RenderItem({item}){
-    // console.log(item);
-    return(
-        <div>
-        <Card >
-            <Link to={`/movies/${item.id}`}>
-          <CardImg top width="100%" height="250px" src={item.image} alt="Card image cap" />
-          <CardBody className="card-body">
-            <CardTitle className="h5 text-center mt-3 mb-4">{item.name}</CardTitle>
-            <div className="container">
-                <div className="row justify-content-space-between">
-                    <Button className="btn btn-danger">Watch trailer</Button>
-                    <Button className="btn btn-danger ml-auto">Add to watchlist</Button>
-                </div>
-            </div>
-            
-          </CardBody>
-          </Link>
-        </Card>
-      </div>
-    );
-}
 
-function RenderAnimeItem({item}){
-    return(
-        <div>
-            <Card>
-                <CardImg height="500px" src={item.attributes.posterImage.original} alt="poster" />
-                <CardBody>
-                    <CardTitle><h3>{item.attributes.canonicalTitle}</h3></CardTitle>
-                    <div className="container mt-4 mb-2">
-                        <div className="row justify-content-between">
-                            <div>
-                                <Button className="btn btn-danger">Watch now</Button>
-                            </div>
-                            <div>
-                                <Button className="btn btn-danger">Add to watchlist</Button>
-                            </div>
-                        </div>
-
-                    </div>
-                </CardBody>
-            </Card>
-        </div>
-    );
-}
-
-function RenderItems({trending}){
-    
-//    console.log(trending.trending.data);
-        //    console.log(trending," inside home");
-           if(trending.isLoading === true){
-            return(
-                <h4>Loading something</h4>
-            );
-           }
-           else{
-              return  trending.trending.data.map((item)=>{
-                return(
-                    <div className="col-12 col-sm-4 mb-5" key={item.id}>
-                        <RenderAnimeItem item = {item} />
-                    </div> 
-                    
-                );
-               })
-            
-           }
-               
-         
-    
-}
      
 
 class Home extends Component{
@@ -122,10 +52,13 @@ class Home extends Component{
     }
     handleLoginsubmit(values){
         this.logintoggleModal();
-        console.log("values are ", values);
+        // console.log("values are ", values);
         this.props.loginUser(values);
     }
-    
+    // componentDidMount(){
+    //     console.log("inside home ",this.props.trending);
+    // }
+   
     render(){
         
        
@@ -261,26 +194,14 @@ class Home extends Component{
                     </ModalBody>
                 </Modal>
                 <div class="row mb-5">
-                        <Search />
+                        <Search fetchAnime = {this.props.fetchAnime}/>
                     </div>
                 <div className="container-fluid mt-5" id="render-items" >
-                    <div className="row justify-content-center">
-                        <h1 className="mt-5 mb-5" >Trending Anime</h1>
-                        </div>
                     
-                    <div className="row">
-                        
-                           <RenderItems trending={this.props.trending} />
-                       
-                     </div>
+                   <RenderAnime trending = {this.props.trending} anime={this.props.anime}/>
                 </div>
                 </div>
-               
-            
-            
-           
-            
-        </>
+            </>
         );
     }
 }

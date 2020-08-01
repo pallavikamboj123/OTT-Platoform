@@ -59,11 +59,11 @@
 }
 
 
-.form-input-modal{
-    background: transparent;
-}
+/* .form-input-modal{
+    /* background: transparent; */
+/* }  */
 .form-input-modal:focus{
-    background: transparent;
+    
     box-shadow: 6px 6px 6px #000;
 }
 
@@ -75,5 +75,23 @@
     background: rgb(255,255,255);
     border: transparent;
     box-shadow: 10px 10px 115px -14px black;
+}
+
+#searchInput{
+    color: rgba(0,0,0,0.6)
+}
+
+.anime-body{
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.06) 39%, rgba(30, 27, 38, 0.88) 53%, rgba(30, 27, 38, 1) 55%);
+	 background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.06) 39%, rgba(30, 27, 38, 0.88) 53%, rgba(30, 27, 38, 1) 55%);
+	 background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.06) 39%, rgba(30, 27, 38, 0.88) 53%, rgba(30, 27, 38, 1) 55%);
+	 position: absolute;
+	 background-size: contain;
+	 background-size: cover;
+	 z-index: 1 !important;
+	 width: 375px;
+	 height: 260px;
+	 display: block;
+	 border-radius: 4px;
 }
 

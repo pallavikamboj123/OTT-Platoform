@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 
 import { trending } from './trending';
 import {Auth } from './auth';
+import {anime} from './anime';
 
 
 export const ConfigureStore = ()=>{
@@ -12,7 +13,8 @@ export const ConfigureStore = ()=>{
         combineReducers({
             // add all reducer functions
             trending: trending,
-            auth: Auth
+            auth: Auth,
+            anime: anime
         }),
         applyMiddleware(thunk, logger)
     );

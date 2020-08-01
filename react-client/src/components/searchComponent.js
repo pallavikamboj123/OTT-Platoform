@@ -7,9 +7,12 @@ import {LocalForm,Control} from 'react-redux-form';
 class Mainpagecontent extends Component{
     constructor(props){
         super(props);
-        
+        this.handleSearchSubmit  = this.handleSearchSubmit.bind(this);
     }
 
+    handleSearchSubmit(value){
+        this.props.fetchAnime(value);
+    }
   
     render()
    { return (
@@ -22,9 +25,9 @@ class Mainpagecontent extends Component{
                     </div>
                     <div className="row mt-3  justify-content-center">
                         <div>
-                            <LocalForm >
+                            <LocalForm onSubmit={value=> {this.handleSearchSubmit(value)}}>
                                 <FormGroup className="col-8 formgroup-main">
-                                    <Control.text model=".searchInput" className="form-control pl-sm-5" name="search" id="searchInput" placeholder="search drama..."
+                                    <Control.text model=".searchInput" className="form-control pr-sm-5" name="search" id="searchInput" placeholder="search drama..."
                                         
                                     />
                                 </FormGroup>

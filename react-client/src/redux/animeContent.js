@@ -6,11 +6,20 @@ export const animeContent = (state = {
     streamingLinks: []
 }, action) => {
     switch(action.type){
-        case ActionTypes.LOAD_EXTRA_DATA:
+        case ActionTypes.LOAD_REVIEWS:
             return{
                 ...state,
-                episodes: action.episodes,
-                reviews: action.reviews,
+               reviews: action.reviews
+            }
+
+        case ActionTypes.LOAD_EPISODES:
+            return{
+                ...state,
+                episodes: action.episodes
+            }
+        case ActionTypes.LOAD_STREAMINGlINKS:
+            return{
+                ...state,
                 streamingLinks: action.streamingLinks
             }
         default:

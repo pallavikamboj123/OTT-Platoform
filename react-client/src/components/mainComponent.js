@@ -3,7 +3,7 @@ import Home from './homeComponent';
 import AnimeDetail from './animeDetailComponent';
 import {connect} from 'react-redux';
 import {signUp, loginUser, logoutUser, fetchTrending,
-     fetchAnime, fetchExtraData} from '../redux/actioncreators'
+     fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks} from '../redux/actioncreators'
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 
 
@@ -22,8 +22,9 @@ const mapDistpatchToProps = dispatch => ({
     logoutUser: ()=>dispatch(logoutUser()),
     fetchTrending: ()=>dispatch(fetchTrending()),
     fetchAnime: (anime)=>dispatch(fetchAnime(anime)) ,
-    fetchExtraData: (animeId)=> dispatch(fetchExtraData(animeId)),
-    
+    fetchAnimeReviews: (animeId) => dispatch(fetchAnimeReviews(animeId)),
+    fetchAnimeEpisodes: (animeId) => dispatch(fetchAnimeEpisodes(animeId)),
+    fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId))
 
 })
 
@@ -32,15 +33,12 @@ const mapDistpatchToProps = dispatch => ({
 class Main extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            apiresp: "api resp is here"
-        }
+        
     }
 
     componentWillMount(){
          this.props.fetchTrending();
        
-    //    console.log(this.props.trending.trending);
     }
     
 
@@ -56,33 +54,31 @@ class Main extends Component{
                     auth={this.props.auth}
                     logoutUser = {this.props.logoutUser}
                     fetchAnime = {this.props.fetchAnime}
-
+                    fetchAnimeReviews = {this.props.fetchAnimeReviews}
+                    fetchAnimeEpisodes = {this.props.fetchAnimeEpisodes}
+                    fetchAnimeStreamingLinks = {this.props.fetchAnimeStreamingLinks}
                 />
             );
         }
 
         const TrendingAnimeDetail = ({match}) =>{
            
-            this.props.fetchExtraData(match.params.animeId);
+          
              
             return(
                 <AnimeDetail 
                     anime = {this.props.trending.trending.data.filter((anime)=> anime.id === match.params.animeId)[0]}
-                    animeContent = {this.props.animeContent}
-              
-                   
+                    animeContent= {this.props.animeContent}
                 />
             );
         }
 
         const AnimeIdDetail = ({match}) => {
-            const animeId = match.params.animeId;
+           
             return(
                 <AnimeDetail 
                     anime = {this.props.anime.anime.data.filter((anime) => anime.id === match.params.animeId)[0]}
-                    animeContent = {this.props.animeContent}
-                    animeId = {animeId}
-                  
+                    animeContent= {this.props.animeContent}
                 />
             );
         }

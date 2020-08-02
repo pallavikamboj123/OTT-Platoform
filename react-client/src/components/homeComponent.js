@@ -194,11 +194,18 @@ class Home extends Component{
                     </ModalBody>
                 </Modal>
                 <div class="row mb-5">
-                        <Search fetchAnime = {this.props.fetchAnime}/>
+                        <Search fetchAnime = {this.props.fetchAnime} />
                     </div>
                 <div className="container-fluid mt-5" id="render-items" >
                     
-                   <RenderAnime trending = {this.props.trending} anime={this.props.anime}/>
+                   <RenderAnime 
+                        trending = {this.props.trending} 
+                        anime={this.props.anime}
+                        fetchAnimeReviews = {this.props.fetchAnimeReviews}
+                        fetchAnimeEpisodes = {this.props.fetchAnimeEpisodes}
+                        fetchAnimeStreamingLinks = {this.props.fetchAnimeStreamingLinks}
+
+                    />
                 </div>
                 </div>
             </>

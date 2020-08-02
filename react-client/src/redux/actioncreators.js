@@ -132,6 +132,12 @@ export const logoutUser = () => (dispatch) => {
    dispatch(receiveLogout())
 }
 
+
+
+// ...........................................................loading trending
+
+
+
 export const isLoadingTrending = ()=>{
    return {
       type: ActionTypes.ISLOADING_TRENDING
@@ -157,6 +163,13 @@ export const fetchTrending = () => (dispatch)=>{
          })
          .catch(err=>alert("something is not right ",err));
 }
+
+
+
+// .................................................loading anime.....................................
+
+
+
 
 
 export const isLoadingAnime = ()=>{
@@ -185,23 +198,60 @@ export const fetchAnime = (anime) => (dispatch)=>{
    .catch(err=> alert("Failed to fetch anime"));
 }
 
-export const loadExtraData = (reviews,episodes,streamingLinks) =>{
-   return{
-      type: ActionTypes.LOAD_EXTRA_DATA,
-      reviews:reviews,
-      episodes:episodes,
-      streamingLinks: streamingLinks
+// ...................................................fetch reviews.......................................
+export const loadReviews = (reviews)=>{
+   return {
+      type: ActionTypes.LOAD_REVIEWS,
+      reviews
    }
 }
 
-export const fetchExtraData = (input) => (dispatch) => {
-   return fetch(`https://kitsu.io/api/edge/anime/${input}/reviews`)
-     
-    .then((reviews) => {
-      dispatch(loadExtraData(reviews.json()));
-    })
-   
-    .catch((err) => {
-        console.log(err);
-    });
+export const fetchAnimeReviews = (animeId) => (dispatch)=>{
+   return fetch(`https://kitsu.io/api/edge/anime/${animeId}/reviews`)
+   .then(reviews => reviews.json())
+   .then(reviews=> dispatch(loadReviews(reviews)))
+   .catch(err => console.log(err));
+}
+
+
+
+
+// ......................................................fetch episodes....................................
+
+
+
+
+export const loadEpisodes = (episodes)=>{
+   return {
+      type: ActionTypes.LOAD_EPISODES,
+      episodes
+   }
+}
+
+export const fetchAnimeEpisodes= (animeId) => (dispatch)=>{
+   return fetch(`https://kitsu.io/api/edge/anime/${animeId}/episodes`)
+   .then(episodes => episodes.json())
+   .then(episodes => dispatch(loadEpisodes(episodes)))
+   .catch(err => console.log(err));
+}
+
+
+
+// .............................................................fetch streaming links.....................
+
+
+
+
+export const loadStreamingLinks = (streamingLinks)=>{
+   return {
+      type: ActionTypes.LOAD_STREAMINGlINKS,
+      streamingLinks
+   }
+}
+
+export const fetchAnimeStreamingLinks = (animeId) => (dispatch)=>{
+   return fetch(`https://kitsu.io/api/edge/anime/${animeId}/streaming-links`)
+   .then(streamingLinks => streamingLinks.json())
+   .then(streamingLinks => dispatch(loadStreamingLinks(streamingLinks)))
+   .catch(err => console.log(err));
 }

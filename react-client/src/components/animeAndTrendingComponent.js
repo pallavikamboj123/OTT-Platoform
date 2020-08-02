@@ -5,7 +5,15 @@ import {Link} from 'react-router-dom';
 import '../css/home.css';
 
 
-function RenderAnimeItem({item, animeImport}){
+function RenderAnimeItem({item, animeImport,fetchAnimeReviews, fetchAnimeEpisodes, fetchAnimeStreamingLinks}){
+
+    function handleOnClick(animeId){
+        fetchAnimeReviews(animeId);
+        fetchAnimeEpisodes(animeId);
+        fetchAnimeStreamingLinks(animeId);
+    }
+
+
     return(
         <div>
            
@@ -25,11 +33,11 @@ function RenderAnimeItem({item, animeImport}){
                             <div>
                                 {animeImport? 
                                     <Link to={`/anime/${item.id}`}>
-                                        <Button  className="btn btn-danger">More Details</Button>
+                                        <Button  value={item.id} onClick= {e => handleOnClick(e.target.value)} className="btn btn-danger">More Details</Button>
                                     </Link>
                                 :
                                     <Link to={`/trending/${item.id}`}>
-                                        <Button  className="btn btn-danger">More Details</Button>
+                                        <Button value={item.id} onClick= {e => handleOnClick(e.target.value)}  className="btn btn-danger">More Details</Button>
                                     </Link>
                                 }
                             </div>
@@ -43,7 +51,7 @@ function RenderAnimeItem({item, animeImport}){
     );
 }
 
-function RenderItems({trending,anime}){
+function RenderItems({trending,anime, fetchAnimeReviews,fetchAnimeEpisodes,fetchAnimeStreamingLinks}){
     if(anime.isImport === false)
         {if(trending.isLoading === true){
             return(
@@ -57,7 +65,11 @@ function RenderItems({trending,anime}){
               return  trending.trending.data.map((item)=>{
                 return(
                     <div className="col-12 col-sm-6 col-lg-4 mb-5" key={item.id}>
-                        <RenderAnimeItem item = {item} animeImport = {anime.isImport}/>
+                        <RenderAnimeItem item = {item} animeImport = {anime.isImport} 
+                                fetchAnimeReviews = {fetchAnimeReviews}
+                                fetchAnimeEpisodes = {fetchAnimeEpisodes}
+                                fetchAnimeStreamingLinks = {fetchAnimeStreamingLinks}
+                        />
                     </div> 
                     
                 );
@@ -77,7 +89,11 @@ function RenderItems({trending,anime}){
                   return  anime.anime.data.map((item)=>{
                     return(
                         <div className="col-12 col-sm-2 col-md-4 mb-5" key={item.id}>
-                            <RenderAnimeItem item = {item} animeImport = {anime.isImport}/>
+                            <RenderAnimeItem item = {item} animeImport = {anime.isImport}
+                                fetchAnimeReviews = {fetchAnimeReviews}
+                                fetchAnimeEpisodes = {fetchAnimeEpisodes}
+                                fetchAnimeStreamingLinks = {fetchAnimeStreamingLinks}
+                            />
                         </div> 
                         
                     );
@@ -112,7 +128,7 @@ function LoadTitle({animeImport, anime}){
 }
 
 
-function RenderAnime({trending, anime}){
+function RenderAnime({trending, anime,fetchAnimeReviews, fetchAnimeEpisodes, fetchAnimeStreamingLinks}){
     return(
         <>
             <div className="row justify-content-center">
@@ -120,7 +136,12 @@ function RenderAnime({trending, anime}){
                 
             </div>
             <div className="row">
-                <RenderItems trending={ trending} anime={anime}/>
+                <RenderItems trending={ trending} anime={anime} 
+                    fetchAnimeReviews = {fetchAnimeReviews}
+                    fetchAnimeEpisodes = {fetchAnimeEpisodes}
+                    fetchAnimeStreamingLinks = {fetchAnimeStreamingLinks}
+
+                />
             </div>
         </>
     );

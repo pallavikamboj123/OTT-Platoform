@@ -14,6 +14,13 @@ class AnimeDetail extends Component{
    
     render(){
        
+        var episodes = this.props.animeContent.episodes.data;
+        var reviews = this.props.animeContent.reviews.data;
+        var streamingLinks = this.props.animeContent.streamingLinks.data;
+        if(reviews){
+            reviews = reviews.splice(1,3);  
+             
+        }
         const anime=  this.props.anime;
       
         return(
@@ -91,13 +98,15 @@ class AnimeDetail extends Component{
                                 
                             </div>
                         </div>
+                        <div className="row">
+                            <RenderReview reviews = {reviews}/>
                         </div>
+                        </div>
+                        
                         <div>
-                            <RenderReview fetchExtraData = {this.props.fetchExtraData}
-                            animeId = {this.props.animeId}
-                            animeContent = {this.props.animeContent}
-                            />
+                            {/* <RenderEpisodes episodes ={episodes} streamingLinks = {streamingLinks} /> */}
                         </div>
+                       
                         
                     
                 </div>

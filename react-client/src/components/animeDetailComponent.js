@@ -18,7 +18,10 @@ class AnimeDetail extends Component{
         var reviews = this.props.animeContent.reviews.data;
         var streamingLinks = this.props.animeContent.streamingLinks.data;
         if(reviews){
-            reviews = reviews.splice(1,3);  
+            if(reviews.length > 3){
+                reviews = reviews.slice(0,3);
+            }
+             
              
         }
         const anime=  this.props.anime;
@@ -98,7 +101,7 @@ class AnimeDetail extends Component{
                                 
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row mt-5">
                             <RenderReview reviews = {reviews}/>
                         </div>
                         </div>

@@ -175,7 +175,7 @@ export const loadAnime = (anime) =>{
 export const fetchAnime = (anime) => (dispatch)=>{
    dispatch(isLoadingAnime());
    // console.log(anime.searchInput, " made request for this anime");
-
+   const input = anime.searchInput;
    return fetch(`https://kitsu.io/api/edge/anime?filter[text]=${anime.searchInput}`)
    .then(anime => anime.json())
    .then(anime=> { 
@@ -183,4 +183,25 @@ export const fetchAnime = (anime) => (dispatch)=>{
       dispatch(loadAnime(anime))
    })
    .catch(err=> alert("Failed to fetch anime"));
+}
+
+export const loadExtraData = (reviews,episodes,streamingLinks) =>{
+   return{
+      type: ActionTypes.LOAD_EXTRA_DATA,
+      reviews:reviews,
+      episodes:episodes,
+      streamingLinks: streamingLinks
+   }
+}
+
+export const fetchExtraData = (input) => (dispatch) => {
+   return fetch(`https://kitsu.io/api/edge/anime/${input}/reviews`)
+     
+    .then((reviews) => {
+      dispatch(loadExtraData(reviews.json()));
+    })
+   
+    .catch((err) => {
+        console.log(err);
+    });
 }

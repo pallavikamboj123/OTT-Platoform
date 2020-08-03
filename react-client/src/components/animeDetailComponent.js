@@ -3,6 +3,7 @@ import { Card, CardImg, Button} from 'reactstrap';
 import '../css/animeDetail.css';
 
 import RenderReview from './renderReviewComponent';
+import RenderEpisodes from './renderEpisodeComponent';
 
 
 
@@ -103,12 +104,13 @@ class AnimeDetail extends Component{
                         </div>
                         <div className="row mt-5">
                             <RenderReview reviews = {reviews}/>
+                        </div>\
+                        <div>
+                            <RenderEpisodes episodes ={episodes} streamingLinks = {streamingLinks} />
                         </div>
                         </div>
                         
-                        <div>
-                            {/* <RenderEpisodes episodes ={episodes} streamingLinks = {streamingLinks} /> */}
-                        </div>
+                       
                        
                         
                     

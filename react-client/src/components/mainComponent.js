@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Home from './homeComponent';
 import AnimeDetail from './animeDetailComponent';
+import WatchList from './watchListComponent';
 import {connect} from 'react-redux';
 import {signUp, loginUser, logoutUser, fetchTrending,
      fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks} from '../redux/actioncreators'
@@ -83,12 +84,19 @@ class Main extends Component{
             );
         }
        
+
+        const Watchlist = ()=>{
+            return(
+                <WatchList auth = {this.props.auth} />
+            );
+        } 
         return(
             <>
             <Switch>
                 <Route exact path="/home" component={Homepage} />
                 <Route exact path="/trending/:animeId" component={TrendingAnimeDetail} />
                 <Route exact path="/anime/:animeId" component={AnimeIdDetail} />
+                <Route exact path="/watchlist" component={Watchlist} />
                 <Redirect to="/home" />
             </Switch>
             

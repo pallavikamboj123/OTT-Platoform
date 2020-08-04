@@ -4,6 +4,7 @@ import '../css/animeDetail.css';
 
 import RenderReview from './renderReviewComponent';
 import RenderEpisodes from './renderEpisodeComponent';
+import { Link } from 'react-router-dom';
 
 
 
@@ -74,7 +75,10 @@ class AnimeDetail extends Component{
                                             <p >Status: <span style={{fontWeight: 'bold'}}>{anime.attributes.status}</span></p>
                                         </div>
                                         <div className="col-12 col-md-6">
-                                            <Button className="btn" style={{background: '#f32227'}}>Add to List</Button>
+                                            {/* <Link to="/watchlist" > */}
+                                                <Button className="btn" style={{background: '#f32227'}}>Add to List</Button>
+                                            {/* </Link> */}
+                                            
                                         </div>
                                         
                                     </div>
@@ -104,7 +108,7 @@ class AnimeDetail extends Component{
                         </div>
                         <div className="row mt-5">
                             <RenderReview reviews = {reviews}/>
-                        </div>\
+                        </div>
                         <div>
                             <RenderEpisodes episodes ={episodes} streamingLinks = {streamingLinks} />
                         </div>

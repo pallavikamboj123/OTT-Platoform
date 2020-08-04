@@ -112,10 +112,12 @@ class Home extends Component{
                                 <></>
                             }
                             <NavItem>
-                                <NavLink className="nav-link" to="#">
+                                <NavLink className="nav-link" >
+                                    <Link to="/watchlist">
                                     <Button  className="nav-module">
                                         Watchlist
                                     </Button>
+                                    </Link>
                                 </NavLink>
                             </NavItem>
                         </Nav>

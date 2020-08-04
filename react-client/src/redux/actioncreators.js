@@ -255,3 +255,43 @@ export const fetchAnimeStreamingLinks = (animeId) => (dispatch)=>{
    .then(streamingLinks => dispatch(loadStreamingLinks(streamingLinks)))
    .catch(err => console.log(err));
 }
+
+
+
+
+// ...................................add to list.............................................
+
+
+
+export const loadList = (data) => {
+   return{
+      type: ActionTypes.ADD_TO_LIST,
+      data
+   }
+}
+
+export const addListServer = (user, animeId) => (dispatch)=> {
+
+   var data = {
+      user: user,
+      animeId: animeId
+   };
+   return fetch('http://localhost:5000/addToList',{
+      method:'POST',
+      headers: {
+         'content-type':'application/json'
+      },
+      body: JSON.stringify(data)
+   })
+   .then(resp => {
+      console.log("inside json resp");
+      resp.json()
+   })
+   .then(resp=> {
+       dispatch(loadList(animeId));
+      console.log("inside resp");
+      alert('successfully added anime to watchlist')
+   })
+   .catch(err => console.log(err));
+
+}

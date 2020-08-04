@@ -4,7 +4,8 @@ import AnimeDetail from './animeDetailComponent';
 import WatchList from './watchListComponent';
 import {connect} from 'react-redux';
 import {signUp, loginUser, logoutUser, fetchTrending,
-     fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks} from '../redux/actioncreators'
+     fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks,
+    addListServer} from '../redux/actioncreators'
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 
 
@@ -25,7 +26,8 @@ const mapDistpatchToProps = dispatch => ({
     fetchAnime: (anime)=>dispatch(fetchAnime(anime)) ,
     fetchAnimeReviews: (animeId) => dispatch(fetchAnimeReviews(animeId)),
     fetchAnimeEpisodes: (animeId) => dispatch(fetchAnimeEpisodes(animeId)),
-    fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId))
+    fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId)),
+    addListServer: (user,animeId) => dispatch(addListServer(user,animeId))
 
 })
 
@@ -58,6 +60,7 @@ class Main extends Component{
                     fetchAnimeReviews = {this.props.fetchAnimeReviews}
                     fetchAnimeEpisodes = {this.props.fetchAnimeEpisodes}
                     fetchAnimeStreamingLinks = {this.props.fetchAnimeStreamingLinks}
+                    
                 />
             );
         }
@@ -70,6 +73,9 @@ class Main extends Component{
                 <AnimeDetail 
                     anime = {this.props.trending.trending.data.filter((anime)=> anime.id === match.params.animeId)[0]}
                     animeContent= {this.props.animeContent}
+                    addListServer = {this.props.addListServer}
+                    auth = {this.props.auth}
+                    animeId = {match.params.animeId}
                 />
             );
         }
@@ -80,6 +86,9 @@ class Main extends Component{
                 <AnimeDetail 
                     anime = {this.props.anime.anime.data.filter((anime) => anime.id === match.params.animeId)[0]}
                     animeContent= {this.props.animeContent}
+                    addListServer = {this.props.addListServer}
+                    auth = {this.props.auth}
+                    animeId = {match.params.animeId}
                 />
             );
         }

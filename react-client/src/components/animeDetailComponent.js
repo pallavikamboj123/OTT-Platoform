@@ -12,6 +12,14 @@ import { Link } from 'react-router-dom';
 class AnimeDetail extends Component{
     constructor(props){
         super(props);
+
+        this.handleOnClick = this.handleOnClick.bind(this);
+        
+    }
+
+    handleOnClick(){
+
+        this.props.addListServer(this.props.auth.user,this.props.animeId);
     }
    
     render(){
@@ -27,6 +35,7 @@ class AnimeDetail extends Component{
              
         }
         const anime=  this.props.anime;
+        console.log(this.props.addListServer);
       
         return(
             <div >
@@ -74,12 +83,20 @@ class AnimeDetail extends Component{
                                         <div className="col-12 col-md-6 ">
                                             <p >Status: <span style={{fontWeight: 'bold'}}>{anime.attributes.status}</span></p>
                                         </div>
-                                        <div className="col-12 col-md-6">
+                                        {this.props.auth.isAuthenticated? 
+                                            <div className="col-12 col-md-6">
                                             {/* <Link to="/watchlist" > */}
-                                                <Button className="btn" style={{background: '#f32227'}}>Add to List</Button>
+                                                <Button className="btn" onClick={e => this.handleOnClick()} style={{background: '#f32227'}}>Add to List</Button>
                                             {/* </Link> */}
-                                            
-                                        </div>
+                                        
+                                            </div>
+                                        :
+
+                                            <div></div>
+                                        }   
+                                    
+                                    
+                                        
                                         
                                     </div>
                                     

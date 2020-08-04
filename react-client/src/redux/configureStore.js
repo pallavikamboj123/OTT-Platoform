@@ -6,6 +6,7 @@ import { trending } from './trending';
 import {Auth } from './auth';
 import {anime} from './anime';
 import {animeContent} from './animeContent';
+import {watchList} from './watchlist';
 
 
 export const ConfigureStore = ()=>{
@@ -16,7 +17,8 @@ export const ConfigureStore = ()=>{
             trending: trending,
             auth: Auth,
             anime: anime,
-            animeContent: animeContent
+            animeContent: animeContent,
+            watchList: watchList
         }),
         applyMiddleware(thunk, logger)
     );

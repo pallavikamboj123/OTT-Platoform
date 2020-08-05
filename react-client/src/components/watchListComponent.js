@@ -2,12 +2,26 @@ import React from 'react';
 import { Button  } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
+function RenderItem({item}){
+    return(
+        <>
+        your watchlist
+        </>
+    );
 
-function Renderdetails({auth}){
+}
+function RenderWatchList({watchlist}){
+    return watchlist.map((item) => {
+        return <RenderItem item ={item} />
+    })
+}
+
+function Renderdetails({auth, watchlist}){
     if(auth.isAuthenticated){
         return(
             <div>
-                you are authenticated.
+                <h2>Hello {auth.user.username}, Here is your watchlist</h2>
+                <RenderWatchList watchlist= {watchlist} />
             </div>
         );
     }
@@ -24,11 +38,11 @@ function Renderdetails({auth}){
     }
 }
 
-function RenderWatchList({auth}){
+function RenderWatchList({auth, watchlist}){
     return(
         <div className="container">
             <div className="row">
-                <Renderdetails auth = {auth} />
+                <Renderdetails auth = {auth} watchlist = {watchlist}/>
             </div>
         </div>
     );

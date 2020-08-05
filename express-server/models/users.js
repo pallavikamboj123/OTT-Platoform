@@ -10,7 +10,10 @@ var userSchema = new Schema({
     lastname:{ 
         type:String,
         default: ''
-    }
+    },
+    watchlist:[{
+        type:Object
+    }]
 },{
     timestamps: true
 });

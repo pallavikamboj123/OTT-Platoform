@@ -19,7 +19,7 @@ class AnimeDetail extends Component{
 
     handleOnClick(){
 
-        this.props.addListServer(this.props.auth.user,this.props.animeId);
+        this.props.addListServer(this.props.auth.user,this.props.anime);
     }
    
     render(){

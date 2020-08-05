@@ -14,7 +14,8 @@ const mapStateToProps = state =>{
         trending: state.trending,
         auth: state.auth,
         anime: state.anime,
-        animeContent: state.animeContent
+        animeContent: state.animeContent,
+        watchList: state.anime
     }
 }
 
@@ -75,7 +76,7 @@ class Main extends Component{
                     animeContent= {this.props.animeContent}
                     addListServer = {this.props.addListServer}
                     auth = {this.props.auth}
-                    animeId = {match.params.animeId}
+                   
                 />
             );
         }
@@ -88,7 +89,7 @@ class Main extends Component{
                     animeContent= {this.props.animeContent}
                     addListServer = {this.props.addListServer}
                     auth = {this.props.auth}
-                    animeId = {match.params.animeId}
+                 
                 />
             );
         }
@@ -96,7 +97,10 @@ class Main extends Component{
 
         const Watchlist = ()=>{
             return(
-                <WatchList auth = {this.props.auth} />
+                <WatchList 
+                    auth = {this.props.auth} 
+                    watchList = {this.props.watchList}
+                />
             );
         } 
         return(

@@ -263,18 +263,18 @@ export const fetchAnimeStreamingLinks = (animeId) => (dispatch)=>{
 
 
 
-export const loadList = (data) => {
-   return{
-      type: ActionTypes.ADD_TO_LIST,
-      data
-   }
+export const loadWatchList = (data) => {
+  return{
+     type: ActionTypes.ADD_TO_LIST,
+     data
+  }
 }
 
-export const addListServer = (user, animeId) => (dispatch)=> {
-
+export const addListServer = (user, anime) => (dispatch)=> {
+   
    var data = {
       user: user,
-      animeId: animeId
+      anime: anime
    };
    return fetch('http://localhost:5000/addToList',{
       method:'POST',
@@ -283,15 +283,13 @@ export const addListServer = (user, animeId) => (dispatch)=> {
       },
       body: JSON.stringify(data)
    })
-   .then(resp => {
-      console.log("inside json resp");
-      resp.json()
-   })
+   .then(resp=> resp.json())
    .then(resp=> {
-       dispatch(loadList(animeId));
-      console.log("inside resp");
-      alert('successfully added anime to watchlist')
+     console.log(resp);
    })
    .catch(err => console.log(err));
 
 }
+
+
+

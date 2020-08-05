@@ -27,6 +27,7 @@ class Home extends Component{
         this.logintoggleModal = this.logintoggleModal.bind(this);
         this.signuptoggleModal = this.signuptoggleModal.bind(this);
         this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
     
@@ -54,6 +55,10 @@ class Home extends Component{
         this.logintoggleModal();
         // console.log("values are ", values);
         this.props.loginUser(values);
+    }
+
+    handleOnClick(){
+        this.props.fetchWatchList(this.props.auth.user);
     }
     // componentDidMount(){
     //     console.log("inside home ",this.props.trending);
@@ -114,7 +119,7 @@ class Home extends Component{
                             <NavItem>
                                 <NavLink className="nav-link" >
                                     <Link to="/watchlist">
-                                    <Button  className="nav-module">
+                                    <Button  onClick={e=> this.handleOnClick()} className="nav-module">
                                         Watchlist
                                     </Button>
                                     </Link>

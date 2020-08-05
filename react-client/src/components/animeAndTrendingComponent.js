@@ -21,7 +21,7 @@ function RenderAnimeItem({item, animeImport,fetchAnimeReviews, fetchAnimeEpisode
                 <CardImg height="500px" src={item.attributes.posterImage.original} alt="poster" />
                 <CardBody >
                     <CardTitle styl={{fontSize: '25px'}}>{item.attributes.canonicalTitle}</CardTitle>
-    <CardSubtitle className="text-muted" style={{fontSize: '12px'}}>Episode: {item.attributes.episodeCount}/ Age rating: {item.attributes.ageRatingGuide}</CardSubtitle>
+                    <CardSubtitle className="text-muted" style={{fontSize: '12px'}}>Episode: {item.attributes.episodeCount}/ Age rating: {item.attributes.ageRatingGuide}</CardSubtitle>
                     <div className="container mt-4 mb-2">
                         <div className="row justify-content-between">
                             <div>

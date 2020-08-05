@@ -283,13 +283,30 @@ export const addListServer = (user, anime) => (dispatch)=> {
       },
       body: JSON.stringify(data)
    })
-   .then(resp=> resp.json())
-   .then(resp=> {
-     console.log(resp);
-   })
-   .catch(err => console.log(err));
+   .then(resp => resp.json())
+  .then(resp => dispatch(loadWatchList(resp.data)))
+  .catch(err => console.log(err))
 
 }
 
+
+
+
+// ...............................fetch watchlist................................
+
+
+export const fetchWatchList = (user)=>(dispatch)=>{
+   return fetch('http://localhost:5000/fetchWatchList',{
+      method: "Get",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer" + localStorage.getItem("token")
+      }
+   }
+    )
+         .then(watchlist =>watchlist.json())
+         .then(watchlist => dispatch(loadWatchList(watchlist)))
+         .catch(err => console.log(err));
+}
 
 

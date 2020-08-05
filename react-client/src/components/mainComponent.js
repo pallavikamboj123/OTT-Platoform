@@ -5,7 +5,7 @@ import WatchList from './watchListComponent';
 import {connect} from 'react-redux';
 import {signUp, loginUser, logoutUser, fetchTrending,
      fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks,
-    addListServer} from '../redux/actioncreators'
+    addListServer, fetchWatchList} from '../redux/actioncreators'
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 
 
@@ -28,7 +28,8 @@ const mapDistpatchToProps = dispatch => ({
     fetchAnimeReviews: (animeId) => dispatch(fetchAnimeReviews(animeId)),
     fetchAnimeEpisodes: (animeId) => dispatch(fetchAnimeEpisodes(animeId)),
     fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId)),
-    addListServer: (user,animeId) => dispatch(addListServer(user,animeId))
+    addListServer: (user,animeId) => dispatch(addListServer(user,animeId)),
+    fetchWatchList: (user)=>dispatch(fetchWatchList(user))
 
 })
 
@@ -61,6 +62,7 @@ class Main extends Component{
                     fetchAnimeReviews = {this.props.fetchAnimeReviews}
                     fetchAnimeEpisodes = {this.props.fetchAnimeEpisodes}
                     fetchAnimeStreamingLinks = {this.props.fetchAnimeStreamingLinks}
+                    fetchWatchList = {this.props.fetchWatchList}
                     
                 />
             );

@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usersRouter');
 var addListRouter = require('./routes/addList');
+var fetchWatchListRouter = require('./routes/fetchWatchList');
 
  const connect = mongoose.connect('mongodb://localhost:27017/kdrama');
 
@@ -41,6 +42,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/addToList', addListRouter);
+app.use('/fetchWatchList',fetchWatchListRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

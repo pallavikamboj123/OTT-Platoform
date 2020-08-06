@@ -285,7 +285,10 @@ export const addListServer = (user, anime) => (dispatch)=> {
       body: JSON.stringify(data)
    })
    .then(resp => resp.json())
-  .then(resp => dispatch(loadWatchList(resp.data)))
+  .then(resp => {
+    
+     dispatch(loadWatchList(resp.data))
+   })
   .catch(err => console.log(err))
 
 }
@@ -296,8 +299,16 @@ export const addListServer = (user, anime) => (dispatch)=> {
 // ...............................fetch watchlist................................
 
 
+export const loadingWatchList = ()=>{
+   return{
+      type: ActionTypes.LOADING_FETCH_WATCHLIST
+   }
+}
+
+
 export const fetchWatchList = (user)=>(dispatch)=>{
-   console.log(localStorage.getItem('token'));
+   dispatch(loadingWatchList());
+  
    return fetch('http://localhost:5000/fetchWatchList',{
       method: "Get",
       headers: {
@@ -307,8 +318,27 @@ export const fetchWatchList = (user)=>(dispatch)=>{
    }
     )
          .then(watchlist =>watchlist.json())
-         .then(watchlist => dispatch(loadWatchList(watchlist)))
+         .then(watchlist => {
+            
+            dispatch(loadWatchList(watchlist.data))
+         })
          .catch(err => console.log(err));
 }
 
+
+// ..................................remove from watchlist...........................
+
+
+export const removeFromWatchList = ()=>(dispatch)=>{
+   return fetch('http://localhost:5000/removeFromWatchList',{
+      method:'GET',
+      headers: {
+         "content-type": "application/json",
+         Authorization: "bearer " + localStorage.getItem('token')
+       }
+   })
+   .then(resp => resp.json())
+   .then(watchlist => dispatch(loadWatchList(watchlist.data)))
+   .catch(err => console.log(err));
+}
 

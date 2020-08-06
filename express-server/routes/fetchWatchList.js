@@ -19,7 +19,7 @@ fetchWatchListRouter.get('/',authenticate.verifyUser,(req,res,next)=>{
         
         else{
             res.statusCode = 200;
-          
+          console.log(user.watchlist.length," watchlist");
             return res.send({data:user.watchlist})
         }
     })

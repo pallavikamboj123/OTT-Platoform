@@ -5,7 +5,7 @@ import WatchList from './watchListComponent';
 import {connect} from 'react-redux';
 import {signUp, loginUser, logoutUser, fetchTrending,
      fetchAnime, fetchAnimeEpisodes,fetchAnimeReviews,fetchAnimeStreamingLinks,
-    addListServer, fetchWatchList} from '../redux/actioncreators'
+    addListServer, fetchWatchList, removeFromWatchList} from '../redux/actioncreators'
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 
 
@@ -29,7 +29,8 @@ const mapDistpatchToProps = dispatch => ({
     fetchAnimeEpisodes: (animeId) => dispatch(fetchAnimeEpisodes(animeId)),
     fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId)),
     addListServer: (user,animeId) => dispatch(addListServer(user,animeId)),
-    fetchWatchList: (user)=>dispatch(fetchWatchList(user))
+    fetchWatchList: (user)=>dispatch(fetchWatchList(user)),
+    removeFromWatchList: ()=>dispatch(removeFromWatchList())
 
 })
 
@@ -98,11 +99,14 @@ class Main extends Component{
        
 
         const Watchlist = ()=>{
-            console.log(this.props.watchList," inside home");
+            var data = this.props.watchList.watchList;
+            var loading = this.props.watchList.isLoading;
             return(
                 <WatchList 
                     auth = {this.props.auth} 
-                    watchList = {this.props.watchList}
+                    watchList = {data}
+                    loading = {loading}
+                    removeWatchList = {this.props.removeFromWatchList}
                 />
             );
         } 

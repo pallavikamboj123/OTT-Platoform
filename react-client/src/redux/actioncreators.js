@@ -276,6 +276,7 @@ export const addListServer = (user, anime) => (dispatch)=> {
       user: user,
       anime: anime
    };
+   console.log("form add to list ",anime);
    return fetch('http://localhost:5000/addToList',{
       method:'POST',
       headers: {
@@ -296,11 +297,12 @@ export const addListServer = (user, anime) => (dispatch)=> {
 
 
 export const fetchWatchList = (user)=>(dispatch)=>{
+   console.log(localStorage.getItem('token'));
    return fetch('http://localhost:5000/fetchWatchList',{
       method: "Get",
       headers: {
         "content-type": "application/json",
-        Authorization: "Bearer" + localStorage.getItem("token")
+        Authorization: "bearer " + localStorage.getItem('token')
       }
    }
     )

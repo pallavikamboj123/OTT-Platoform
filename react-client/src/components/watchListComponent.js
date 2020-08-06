@@ -22,50 +22,52 @@ function RenderItem({item}){
 
 }
 function Renderwatchlist({watchlist}){
-    return watchlist.map((item) => {
+    return watchlist.data.map((item) => {
         return <RenderItem item ={item} />
     })
 }
 
 function Renderdetails({auth, watchlist}){
-    if(auth.isAuthenticated){
-        if(watchlist)
-       {    
-           return(
-                <div>
-                    <h2>Hello {auth.user.username}, Here is your watchlist</h2>
-                    <Renderwatchlist watchlist= {watchlist} />
-                </div>
-            );
-        }
-        else{
-            return(
-                <div>
-                    Loading Watchlist
-                </div>
-            );
-        }
-    }
-    else{
-        return(
-            <div style={{textAlign: 'center'}}>
+    console.log(watchlist," watchlist component");
+    // if(auth.isAuthenticated){
+    //     if(watchlist.data.length > 0 )
+    //    {    
+           
+    //        return(
+    //             <div>
+    //                 <h2>Hello {auth.user.username}, Here is your watchlist</h2>
+    //                 <Renderwatchlist watchlist= {watchlist} />
+    //             </div>
+    //         );
+    //     }
+    //     else{
+    //         return(
+    //             <div>
+    //                 Loading Watchlist
+    //             </div>
+    //         );
+    //     }
+    // }
+    // else{
+    //     return(
+    //         <div style={{textAlign: 'center'}}>
 
-                <h1>Looks like you are not logged in!</h1>
-                <Link to="/home">
-                    <Button className="btn btn-info">Click to go to home-page</Button>
-                </Link>
-            </div>
-        );
-    }
+    //             <h1>Looks like you are not logged in!</h1>
+    //             <Link to="/home">
+    //                 <Button className="btn btn-info">Click to go to home-page</Button>
+    //             </Link>
+    //         </div>
+    //     );
+    // }
 }
 
-function RenderWatchList({auth, watchlist}){
-    
+function RenderWatchList({auth, watchList}){
+   
     return(
 
         <div className="container">
             <div className="row">
-                <Renderdetails auth = {auth} watchlist = {watchlist}/>
+                <Renderdetails auth = {auth} watchlist = {watchList}/>
             </div>
         </div>
     );

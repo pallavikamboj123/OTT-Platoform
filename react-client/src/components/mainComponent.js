@@ -15,7 +15,7 @@ const mapStateToProps = state =>{
         auth: state.auth,
         anime: state.anime,
         animeContent: state.animeContent,
-        watchList: state.anime
+        watchList: state.watchList
     }
 }
 
@@ -98,6 +98,7 @@ class Main extends Component{
        
 
         const Watchlist = ()=>{
+            console.log(this.props.watchList," inside home");
             return(
                 <WatchList 
                     auth = {this.props.auth} 

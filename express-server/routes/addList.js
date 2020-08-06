@@ -10,6 +10,7 @@ addListRouter.post('/', (req,res,next)=>{
     var anime = req.body.anime;
 
     console.log(userReq," user");
+    console.log(anime," anime");
   
     User.findOne({username: userReq.username}, (err,user)=>{
         console.log("outsude");
@@ -20,9 +21,9 @@ addListRouter.post('/', (req,res,next)=>{
             throw err;
         }
         else if(user){
-            const animeId = anime.id
+            const animeId = anime.id;
             console.log(typeof(animeId));
-            console.log(typeof(user.watchlist[0].id));
+            // console.log(typeof(user.watchlist[0].id));
             for(var i = 0;i<user.watchlist.length;i++){
                 if(animeId === user.watchlist[i].id){
                     res.statusCode = 200;

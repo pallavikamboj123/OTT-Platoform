@@ -30,7 +30,7 @@ const mapDistpatchToProps = dispatch => ({
     fetchAnimeStreamingLinks: (animeId) => dispatch(fetchAnimeStreamingLinks(animeId)),
     addListServer: (user,animeId) => dispatch(addListServer(user,animeId)),
     fetchWatchList: (user)=>dispatch(fetchWatchList(user)),
-    removeFromWatchList: ()=>dispatch(removeFromWatchList())
+    removeFromWatchList: (animeId)=>dispatch(removeFromWatchList(animeId))
 
 })
 

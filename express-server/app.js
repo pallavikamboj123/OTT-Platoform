@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/usersRouter');
 var addListRouter = require('./routes/addList');
 var fetchWatchListRouter = require('./routes/fetchWatchList');
+var removeWatchListRouter = require('./routes/removeFromWatchList');
 
  const connect = mongoose.connect('mongodb://localhost:27017/kdrama');
 
@@ -22,6 +23,8 @@ var fetchWatchListRouter = require('./routes/fetchWatchList');
  
 var app = express();
 var cors = require('cors');
+
+
 
 
 // view engine setup
@@ -43,6 +46,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/addToList', addListRouter);
 app.use('/fetchWatchList',fetchWatchListRouter);
+app.use('/removeFromWatchList', removeWatchListRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

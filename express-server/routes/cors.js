@@ -2,16 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const whitelist = ['http://localhost/3000'];
-var corsOptionsDelegate = (req,callback)=>{
+const whitelist = ['http://localhost:3000', 'http://localhost:3000/watchlist'];
+var corsOptionsDelegate = (req, callback) => {
     var corsOptions;
-    if(whitelist.indexOf(req.header('Origin')) != -1){
-        corsOptions = {origin: true};
+    console.log(req.header('Origin')," inside cors");
+    if(whitelist.indexOf(req.header('Origin')) !== -1) {
+        console.log("inside cors true");
+        corsOptions = { origin: true };
     }
-    else{
-        corsOptions = {origin: false};
+    else {
+        console.log("inside cors false");
+        corsOptions = { origin: false };
     }
-    callback(null,corsOptions);
+    callback(null, corsOptions);
 };
 
 exports.cors = cors();

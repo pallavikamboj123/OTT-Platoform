@@ -329,16 +329,20 @@ export const fetchWatchList = (user)=>(dispatch)=>{
 // ..................................remove from watchlist...........................
 
 
-export const removeFromWatchList = ()=>(dispatch)=>{
+export const removeFromWatchList = (animeId)=>(dispatch)=>{
    return fetch('http://localhost:5000/removeFromWatchList',{
-      method:'GET',
+      mode: 'cors',
+      method:'DELETE',
       headers: {
          "content-type": "application/json",
          Authorization: "bearer " + localStorage.getItem('token')
-       }
+       },
+       body: JSON.stringify(animeId)
    })
    .then(resp => resp.json())
-   .then(watchlist => dispatch(loadWatchList(watchlist.data)))
+   .then(resp =>console.log(resp))
+   // .then(resp => resp.json())
+   // .then(watchlist => dispatch(loadWatchList(watchlist.data)))
    .catch(err => console.log(err));
 }
 

@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom';
 function RenderItem({item,removeWatchList}){
 
 
-    function handleOnClick(){
-       removeWatchList();
+    function handleOnClick(animeId){
+       removeWatchList(animeId);
     }
 
     return(
@@ -18,7 +18,7 @@ function RenderItem({item,removeWatchList}){
                <CardBody >
                    <CardTitle styl={{fontSize: '25px'}}>{item.attributes.canonicalTitle}</CardTitle>
                    <CardSubtitle className="text-muted" style={{fontSize: '12px'}}>Episode: {item.attributes.episodeCount}/ Age rating: {item.attributes.ageRatingGuide}</CardSubtitle>
-                   <Button onClick={e => handleOnClick()} className="btn btn-danger mt-2 mb-2">Remove from watchlist</Button>
+                   <Button value = {item.id} onClick={e => handleOnClick(e.target.value)} className="btn btn-danger mt-2 mb-2">Remove from watchlist</Button>
                </CardBody>
            </Card>
           
